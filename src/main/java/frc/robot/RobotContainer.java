@@ -1,11 +1,8 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
@@ -148,7 +145,7 @@ public class RobotContainer {
             () -> -controller.getLeftY(),
             () -> -controller.getLeftX(),
             () -> -controller.getRightX()));
-   /*  controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
+    /*  controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
     controller // uhhhhh
         .a()
         .onTrue(
@@ -157,7 +154,8 @@ public class RobotContainer {
                         drive.setPose(
                             new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
                     drive)
-                .ignoringDisable(true));*/ // uhhhhh boobies
+                .ignoringDisable(true));*/
+    // uhhhhh boobies
   }
 
   /**

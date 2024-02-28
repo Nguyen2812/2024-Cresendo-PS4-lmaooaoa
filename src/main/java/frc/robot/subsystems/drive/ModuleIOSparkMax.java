@@ -159,7 +159,7 @@ public class ModuleIOSparkMax implements ModuleIO {
 
     inputs.odometryTimestamps =
         timestampQueue.stream().mapToDouble((Double value) -> value).toArray();
-        
+
     inputs.odometryDrivePositionsRad =
         drivePositionQueue.stream()
             .mapToDouble((Double value) -> Units.rotationsToRadians(value) / DRIVE_GEAR_RATIO)
@@ -185,7 +185,7 @@ public class ModuleIOSparkMax implements ModuleIO {
     turnSparkMax.setVoltage(volts);
   }
 
-  //Basically if enabled wheels set to break mode otherwise it just coasts and move around freely
+  // Basically if enabled wheels set to break mode otherwise it just coasts and move around freely
   @Override
   public void setDriveBrakeMode(boolean enable) {
     driveSparkMax.setIdleMode(enable ? IdleMode.kBrake : IdleMode.kCoast);
