@@ -50,28 +50,28 @@ public class ModuleIOSparkMax implements ModuleIO {
         turnSparkMax = new CANSparkMax(4, MotorType.kBrushless);
         turnAbsoluteEncoder = new CANcoder(12);
         absoluteEncoderOffset =
-            new Rotation2d(Units.rotationsToRadians(0.162842)); // MUST BE CALIBRATED
+            new Rotation2d(Units.rotationsToRadians(0.125244)); // MUST BE CALIBRATED
         break;
       case 1: // FR
         driveSparkMax = new CANSparkMax(1, MotorType.kBrushless);
         turnSparkMax = new CANSparkMax(2, MotorType.kBrushless);
         turnAbsoluteEncoder = new CANcoder(11);
         absoluteEncoderOffset =
-            new Rotation2d(Units.rotationsToRadians(-0.430420)); // MUST BE CALIBRATED
+            new Rotation2d(Units.rotationsToRadians(0.548828)); // MUST BE CALIBRATED
         break;
       case 2: // BL
         driveSparkMax = new CANSparkMax(5, MotorType.kBrushless);
         turnSparkMax = new CANSparkMax(6, MotorType.kBrushless);
         turnAbsoluteEncoder = new CANcoder(10);
         absoluteEncoderOffset =
-            new Rotation2d(Units.rotationsToRadians(0.465820)); // MUST BE CALIBRATED
+            new Rotation2d(Units.rotationsToRadians(0.442139)); // MUST BE CALIBRATED
         break;
       case 3: // BR
         driveSparkMax = new CANSparkMax(7, MotorType.kBrushless);
         turnSparkMax = new CANSparkMax(8, MotorType.kBrushless);
         turnAbsoluteEncoder = new CANcoder(9);
         absoluteEncoderOffset =
-            new Rotation2d(Units.rotationsToRadians(-0.289795)); // MUST BE CALIBRATED
+            new Rotation2d(Units.rotationsToRadians(0.277100)); // MUST BE CALIBRATED
         break;
       default:
         throw new RuntimeException("Invalid module index");
@@ -159,10 +159,12 @@ public class ModuleIOSparkMax implements ModuleIO {
 
     inputs.odometryTimestamps =
         timestampQueue.stream().mapToDouble((Double value) -> value).toArray();
+        
     inputs.odometryDrivePositionsRad =
         drivePositionQueue.stream()
             .mapToDouble((Double value) -> Units.rotationsToRadians(value) / DRIVE_GEAR_RATIO)
             .toArray();
+
     inputs.odometryTurnPositions =
         turnPositionQueue.stream()
             .map((Double value) -> Rotation2d.fromRotations(value / TURN_GEAR_RATIO))
@@ -183,6 +185,7 @@ public class ModuleIOSparkMax implements ModuleIO {
     turnSparkMax.setVoltage(volts);
   }
 
+  //Basically if enabled wheels set to break mode otherwise it just coasts and move around freely
   @Override
   public void setDriveBrakeMode(boolean enable) {
     driveSparkMax.setIdleMode(enable ? IdleMode.kBrake : IdleMode.kCoast);
